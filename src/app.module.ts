@@ -9,10 +9,11 @@ import { ProductsService } from './products/products.service';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsController } from './products/products.controller';
 import { ProductsModule } from './products/products.module';
+import { TnModule } from './tn/tn.module';
 
 
 @Module({
-  imports: [ConfigModule.forRoot(),MongooseModule.forRoot(process.env.DATABASE_URI), AuthModule, UsersModule, OrdersModule, ProductsModule],
+  imports: [ConfigModule.forRoot(),MongooseModule.forRoot(process.env.DATABASE_URI), AuthModule, UsersModule, OrdersModule, ProductsModule, TnModule],
   controllers: [AppController, ProductsController],
   providers: [AppService, ProductsService],
 })
