@@ -13,7 +13,7 @@ import { ProductsModule } from './products/products.module';
 
 
 @Module({
-  imports: [ConfigModule.forRoot(),MongooseModule.forRoot(process.env.DATABASE_URI), AuthModule, UsersModule, OrdersModule, ProductsModule],
+  imports: [ConfigModule.forRoot(),MongooseModule.forRoot(process.env.DATABASE_URL), AuthModule, UsersModule, OrdersModule, ProductsModule],
   controllers: [AppController, ProductsController],
   providers: [AppService, ProductsService],
 })
