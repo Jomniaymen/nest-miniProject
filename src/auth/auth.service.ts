@@ -5,40 +5,28 @@ import { Model } from 'mongoose';
 
 import { UserDto } from 'src/users/dto/user.dto';
 import { User } from 'src/users/user.schema';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt'
 @Injectable()
 export class AuthService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async Signup(dto: UserDto) {
-    const { name, email, password, age, role } = dto;
-  
-    // Check if the email is already used
-    const existingUser = await this.userModel.findOne({ email });
-    if (existingUser) {
-      throw new BadRequestException('Email already used');
+  async Signup(dto: UserDto)  {
+    const {name ,email,password,age,role}=dto
+  const check= await this.userModel.findOne({
+    email});
+    if(check){
+        throw new  BadRequestException('email already used');
     }
-  
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-  
-    // Create the new user
-    const newUser = await this.userModel.create({
-      name,
-      email,
-      age,
-      password: hashedPassword,
-      role,
-    });
-  
-    // Return the created user information
-    return {
-      id: newUser._id,
-      name: newUser.name,
-      email: newUser.email,
-      age: newUser.age,
-      role: newUser.role,
-    };
+ const hashedpassword=await bcrypt.hash(password,10);
+  const newuser=await this.userModel.create({
+    name,
+    email,
+    age,
+    password: hashedpassword,
+    role, 
+  });
+ return newuser;
+
   }
   async Signin(dto: UserDto)  {
     const {name ,email,password,age,role}=dto
