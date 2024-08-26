@@ -18,4 +18,3 @@ import { TnModule } from './tn/tn.module';
   providers: [AppService, ProductsService],
 })
 export class AppModule {}
-QSDQQQQQQQQQQQQQQQ
