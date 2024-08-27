@@ -9,6 +9,7 @@ import { ProductsService } from './products/products.service';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsController } from './products/products.controller';
 import { ProductsModule } from './products/products.module';
+import { JwtModule } from '@nestjs/jwt';
 
 
 

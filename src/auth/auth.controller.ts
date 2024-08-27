@@ -3,6 +3,7 @@ import { UserDto } from 'src/users/dto/user.dto';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { User } from 'src/users/user.schema';
+import { SigninDto } from 'src/users/dto/userSignin.dto';
 
 @Controller('autho')
 export class AuthController {
@@ -14,8 +15,8 @@ async  signup(@Body() dto:UserDto){
 }
 
 @Post('signin')
-async signip(@Body() dto:UserDto){
-    return  this.authService.Signin(dto);
+async signip(@Body() dtosign:SigninDto){
+    return  this.authService.Signin(dtosign);
 
 
 }
