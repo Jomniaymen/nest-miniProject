@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
 import { domainToASCII } from 'url';
-import { updateuserDTO } from './dto/updateuser.dto copy';
+import { updateuserDTO } from './dto/updateuser.dto ';
 
 @Controller('users')
 export class UsersController {
