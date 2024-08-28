@@ -14,8 +14,9 @@ import { JwtModule } from '@nestjs/jwt';
 
 
 @Module({
-  imports: [ConfigModule.forRoot(),MongooseModule.forRoot(process.env.DATABASE_URL), AuthModule, UsersModule, OrdersModule, ProductsModule],
-  controllers: [AppController, ProductsController],
-  providers: [AppService, ProductsService],
+  imports: [ConfigModule.forRoot(),MongooseModule.forRoot(process.env.DATABASE_URL),ProductsModule, AuthModule, UsersModule, OrdersModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
+

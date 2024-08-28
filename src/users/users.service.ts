@@ -1,9 +1,11 @@
 import { Body, Injectable, NotFoundException, Param } from '@nestjs/common';
 import { User } from './user.schema';
-import { Model } from 'mongoose';
+import { Model, Query } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserDto } from './dto/user.dto';
 import { updateuserDTO } from './dto/updateuser.dto ';
+import { query } from 'express';
+import { FilterUserDto } from './dto/filter.dto';
 
 
 @Injectable()
@@ -33,5 +35,7 @@ constructor(@InjectModel(User.name) private usermodel:Model<User>){}
         return await this.usermodel.findByIdAndDelete(id)
        
     }
+
+
 
 }
