@@ -3,5 +3,5 @@ import { IsString, IsEmail, IsNumber, IsOptional, MinLength, IsEnum, isEnum } fr
 export class updateuserDTO {
   @IsString()
   readonly name: string;
-
+  readonly email: string;
 }
