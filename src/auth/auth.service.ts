@@ -27,11 +27,21 @@ export class AuthService {
     password: hashedpassword,
     role, 
   });
- return newuser;
+  const payload = { sub: newuser._id, name: newuser.name, role: newuser.role };
+  const access_token = await this.jwtService.signAsync(payload);
 
-  }
+  return {
+    user: {
+      id: newuser._id,
+      name: newuser.name,
+      email: newuser.email,
+      role: newuser.role,
+    },
+    access_token,
+  };
+}
   async Signin(dtosign:SigninDto)  {
-    const {name ,email,password,role}=dtosign
+    const {email,password,role}=dtosign
   const check= await this.userModel.findOne({
     email});
     if(!check){
@@ -41,13 +51,13 @@ export class AuthService {
  if(!passwordmatch){
     throw new  UnauthorizedException('password wrong');
 }
-const payload = { sub: check._id, name: check.name, role: check.role,password:check.password };
+const payload = { sub: check._id, role: check.role,password:check.password };
 const access_token = await this.jwtService.signAsync(payload);
 return {
   access_token,
   user: {
     id: check._id,
-    name: check.name,
+  
     email:check.email,
     password:check.password 
   },

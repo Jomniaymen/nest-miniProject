@@ -2,9 +2,7 @@ import { IsString, IsEmail, IsNumber, IsOptional, MinLength, IsEnum, isEnum } fr
 
 export class SigninDto {
 
-  @IsString()
-  @MinLength(5)
-  readonly name: string;
+
 
   
   @IsEmail()

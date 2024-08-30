@@ -10,6 +10,9 @@ import { FilterUserDto } from './dto/filter.dto';
 
 @Injectable()
 export class UsersService {
+  findById(sub: any) {
+    throw new Error('Method not implemented.');
+  }
 constructor(@InjectModel(User.name) private usermodel:Model<User>){}
     async createnewuser(@Body() dto:UserDto){
         const newuser=await this.usermodel.create(dto)
