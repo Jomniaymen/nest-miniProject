@@ -15,7 +15,7 @@ export class UserDto {
   @MinLength(6)
   readonly password: string;
 
-  @IsOptional()
+
   @IsEnum(['admin','customer'])
   readonly role: 'admin'|'customer'; 
 }
