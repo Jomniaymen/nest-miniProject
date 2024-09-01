@@ -11,7 +11,7 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { User } from './user.schema';
 
 
-@ApiTags('User')
+@ApiTags('Users')
 @ApiBearerAuth('JWT-auth')
 @Controller('users')
 @UseGuards(JwtAuthGuard, RolesGuard)
