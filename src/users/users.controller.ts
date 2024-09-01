@@ -2,14 +2,17 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } fro
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
 
-import { FilterUserDto } from './dto/filter.dto';
+
 import { updateuserDTO } from './dto/updateuser.dto ';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/guards/roles.decorator';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { User } from './user.schema';
 
 
-
+@ApiTags('Users')
+@ApiBearerAuth('JWT-auth')
 @Controller('users')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class UsersController {
@@ -30,7 +33,7 @@ export class UsersController {
         return await this.userservice.readuser(id);
     }
 
-    @Get()
+@Get()
 @Roles('admin')
 @UseGuards(RolesGuard)
     async findAllUsers() {
