@@ -4,9 +4,14 @@ import { Orderdto } from './dto/order.dto';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/guards/roles.decorator';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+
+
+@ApiTags('Orders')  
+@ApiBearerAuth('JWT-auth') 
 @Controller('orders')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards( RolesGuard)
 export class OrdersController {
     
         constructor(private readonly ordersServicee: OrdersService) {}

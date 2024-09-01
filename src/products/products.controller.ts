@@ -4,7 +4,12 @@ import { ProductDto } from './dto/product.dto';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/guards/roles.decorator';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+
+
+@ApiTags('Products')  
+@ApiBearerAuth('JWT-auth') 
 @Controller('products')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class ProductsController {

@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { UserDto } from './dto/user.dto';
 import { updateuserDTO } from './dto/updateuser.dto ';
 import { query } from 'express';
-import { FilterUserDto } from './dto/filter.dto';
+
 
 
 @Injectable()

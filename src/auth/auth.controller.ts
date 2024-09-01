@@ -4,8 +4,13 @@ import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { User } from 'src/users/user.schema';
 import { SigninDto } from 'src/users/dto/userSignin.dto';
-import { Public } from './public.decorator';
+import { Public } from '../common/guards/public.decorator';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+
+
+@ApiTags('authentication ')  
+@ApiBearerAuth('JWT-auth') 
 @Controller('autho')
 export class AuthController {
 constructor(private readonly authService:AuthService){}
