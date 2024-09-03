@@ -76,14 +76,14 @@ describe('AuthService', () => {
   });
   describe('Signin', () => {
     it('should throw UnauthorizedException if email is wrong', async () => {
-      const dto = { email: 'wrong@example.com', password: 'password123' };
+      const dto = { email: 'aymen@gmail.com', password: 'password123' };
       jest.spyOn(userModel, 'findOne').mockResolvedValueOnce(null);
   
       await expect(authService.Signin(dto)).rejects.toThrow(UnauthorizedException);
     });
   
     it('should throw UnauthorizedException if password is wrong', async () => {
-      const dto = { email: 'test@example.com', password: 'wrongPassword' };
+      const dto = { email: 'aymen@gmail.com', password: 'wrongPassword' };
       const user = { email: dto.email, password: 'hashedPassword' };
       jest.spyOn(userModel, 'findOne').mockResolvedValueOnce(user as any);
       jest.spyOn(bcrypt, 'compare').mockResolvedValueOnce(false);
@@ -92,7 +92,7 @@ describe('AuthService', () => {
     });
   
     it('should return access_token and user on successful signin', async () => {
-      const dto = { email: 'test@example.com', password: 'password123' };
+      const dto = { email: 'aymen@gmail.com', password: 'password123' };
       const user = { email: dto.email, password: 'hashedPassword', _id: 'someId' };
       const payload = { sub: user._id, role: 'user', password: user.password };
       const accessToken = 'accessToken';
