@@ -19,35 +19,35 @@ export class OrdersController {
         @Post()
         @Roles('customer','admin')
     @UseGuards(RolesGuard)
-            async createProduct(@Body() orderdto:Orderdto) {
+            async createoreder(@Body() orderdto:Orderdto) {
                 return this.ordersServicee.createProduct( orderdto);
             }
         
             @Get()
             @Roles('customer')
             @UseGuards(RolesGuard)
-            async getAllProducts() {
+            async getAllOrders() {
                 return this.ordersServicee.getallpro();
             }
         
             @Get(':id')
             @Roles('customer','admin')
             @UseGuards(RolesGuard)
-            async getProductById(@Param('id') id: string) {
+            async getOrderById(@Param('id') id: string) {
                 return this.ordersServicee.getProductById(id);
             }
         
             @Put(':id')
             @Roles('admin')
             @UseGuards(RolesGuard)
-            async updateProduct(@Param('id') id: string, @Body()  orderdto: Orderdto) {
+            async updateOrder(@Param('id') id: string, @Body()  orderdto: Orderdto) {
                 return this.ordersServicee.updateProduct(id,  orderdto);
             }
         
             @Delete(':id')
             @Roles('admin')
             @UseGuards(RolesGuard)
-            async deleteProduct(@Param('id') id: string) {
+            async deleteOrder(@Param('id') id: string) {
                 return this.ordersServicee.deleteProduct(id);   
         
             }

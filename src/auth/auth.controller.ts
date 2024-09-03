@@ -1,9 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { UserDto } from 'src/users/dto/user.dto';
-import { UsersService } from 'src/users/users.service';
+import { UserDto } from '../users/dto/user.dto';
 import { AuthService } from './auth.service';
-import { User } from 'src/users/user.schema';
-import { SigninDto } from 'src/users/dto/userSignin.dto';
+import { SigninDto } from '../users/dto/userSignin.dto';
 import { Public } from '../common/guards/public.decorator';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 

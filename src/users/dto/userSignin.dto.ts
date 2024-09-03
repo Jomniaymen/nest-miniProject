@@ -14,8 +14,5 @@ export class SigninDto {
   @MinLength(6)
   readonly password: string;
   
-  @ApiProperty()
-  @IsOptional()
-  @IsEnum(['admin','customer'])
-  readonly role: 'admin'|'customer'; 
+ 
 }
