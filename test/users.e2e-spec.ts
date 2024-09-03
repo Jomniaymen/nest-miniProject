@@ -7,8 +7,8 @@ import { RolesGuard } from '../src/common/guards/roles.guard';
 
 describe('UsersController (e2e)', () => {
   let app: INestApplication;
-  const adminToken = 'your_admin_jwt_token_here'; // Use a valid JWT token with 'admin' role
-  const customerToken = 'your_customer_jwt_token_here'; // Use a valid JWT token with 'customer' role
+  const adminToken = 'your_admin_jwt_token_here'; 
+  const customerToken = 'your_customer_jwt_token_here'; 
   let userId: string;
 
   beforeAll(async () => {

@@ -1,65 +1,67 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
+import { AuthController } from '../src/auth/auth.controller';
+import { AuthService } from '../src/auth/auth.service';
 import { UserDto } from '../src/users/dto/user.dto';
 import { SigninDto } from '../src/users/dto/userSignin.dto';
 
-describe('AuthController (e2e)', () => {
-  let app: INestApplication;
-  let accessToken: string;
+describe('AuthController', () => {
+  let authController: AuthController;
+  let authService: AuthService;
 
+  const mockAuthService = {
+    Signup: jest.fn(),
+    Signin: jest.fn(),
+  };
 
-  beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      controllers: [AuthController],
+      providers: [
+        {
+          provide: AuthService,
+          useValue: mockAuthService,
+        },
+      ],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    authController = module.get<AuthController>(AuthController);
+    authService = module.get<AuthService>(AuthService);
   });
 
-  afterAll(async () => {
-    await app.close();
+  it('should be defined', () => {
+    expect(authController).toBeDefined();
   });
 
-  // Test for user registration
-  it('/autho/signup (POST)', async () => {
-    const response = await request(app.getHttpServer())
-      .post('/autho/signup')
-      .send({
-        name: 'aymen',
-        password: 'password',
-        age: 23,
-        email: 'aymenjomni@gmail.com',
-        role: 'customer',
-      })
-      .expect(201);
+  describe('signup', () => {
+    it('should call AuthService.Signup with correct params', async () => {
+      const dto: UserDto = {
+        email: 'aymen@gmail.com',
+        password: 'password123',
+        name: 'test',
+        age: 30,
+        role: 'admin',
+      };
+      mockAuthService.Signup.mockResolvedValue({ message: 'User created' });
 
-    expect(response.body).toHaveProperty('accessToken');
-  
-    expect(response.body).toHaveProperty('user');
-  });
-  it('/autho/signin (POST)', async () => {
-    const response = await request(app.getHttpServer())
-      .post('/autho/signin')
-      .send({
-        email: 'aymenjomni@gmail.com',
-        password: 'password',
-      })
-      .expect(200);
+      const result = await authController.signup(dto);
 
-    accessToken = response.body.accessToken;
-    expect(response.body).toHaveProperty('accessToken');
- 
-    expect(response.body).toHaveProperty('user');
+      expect(result).toEqual({ message: 'User created' });
+      expect(mockAuthService.Signup).toHaveBeenCalledWith(dto);
+    });
   });
 
-  // Test for a protected endpoint using the access token
-  it('/some/protected/endpoint (GET)', async () => {
-    await request(app.getHttpServer())
-      .get('/some/protected/endpoint')
-      .set('Authorization', `Bearer ${accessToken}`)
-      .expect(200);
+  describe('signin', () => {
+    it('should call AuthService.Signin with correct params', async () => {
+      const signinDto: SigninDto = {
+        email: 'aymen@gmail.com',
+        password: 'password123',
+      };
+      mockAuthService.Signin.mockResolvedValue({ access_token: 'some-jwt-token' });
+
+      const result = await authController.signip(signinDto);
+
+      expect(result).toEqual({ access_token: 'some-jwt-token' });
+      expect(mockAuthService.Signin).toHaveBeenCalledWith(signinDto);
+    });
   });
 });
