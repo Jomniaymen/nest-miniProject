@@ -13,14 +13,14 @@ export class OrdersService {
      return newuser
  }
  async getProductById( id:string){
-     const findprodct=await this.productModel.findById(id).populate('products.productid');
+     const findprodct=await this.productModel.findById(id).populate('products');
      if (!findprodct){
        throw new NotFoundException('product not foud')
      }
      return findprodct
  }
  async  getallpro(){
-     return await this.productModel.find().populate('products.productid');
+     return await this.productModel.find().populate('products');
   
     
  }
