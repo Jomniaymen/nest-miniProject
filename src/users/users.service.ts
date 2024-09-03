@@ -3,13 +3,16 @@ import { User } from './user.schema';
 import { Model, Query } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserDto } from './dto/user.dto';
-import { updateuserDTO } from './dto/updateuser.dto ';
+import { UpdateuserDTO } from './dto/updateuser.dto ';
 import { query } from 'express';
 
 
 
 @Injectable()
 export class UsersService {
+  findByIdAndUpdate(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
   findById(sub: any) {
     throw new Error('Method not implemented.');
   }
@@ -30,7 +33,7 @@ constructor(@InjectModel(User.name) private usermodel:Model<User>){}
      
        
     }
-    async Update(id:string, dto:updateuserDTO){
+    async Update(id:string, dto:UpdateuserDTO){
         return await this.usermodel.findByIdAndUpdate(id,dto,{new:true})
        
     }

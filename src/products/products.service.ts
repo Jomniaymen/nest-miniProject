@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class ProductsService {
+    
    constructor(@InjectModel(Product.name) private productModel:Model<Product>){}
 
    async createProduct(@Body() dto:ProductDto){

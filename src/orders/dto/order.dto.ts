@@ -19,7 +19,7 @@ export class Orderdto {
   @ApiProperty()
   @IsArray()
   @IsOptional()
-  products:{productId: Types.ObjectId; quantity: number } ;
+  products:Types.ObjectId[];
 
 
 }

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsEmail, IsNumber, IsOptional, MinLength, IsEnum, isEnum } from 'class-validator';
 
-export class updateuserDTO {
+export class UpdateuserDTO {
 
   @ApiProperty()
   @IsString()
@@ -11,7 +11,5 @@ export class updateuserDTO {
 @IsEmail()
   readonly email: string;
 
- @ApiProperty()
-  @IsEnum(['admin','customer'])
-  readonly role: 'admin'|'customer';
+ 
 }

@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { Orderdto } from './dto/order.dto';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { Roles } from 'src/common/guards/roles.decorator';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/guards/roles.decorator';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 
@@ -24,7 +24,7 @@ export class OrdersController {
             }
         
             @Get()
-            @Roles('admin')
+            @Roles('customer')
             @UseGuards(RolesGuard)
             async getAllProducts() {
                 return this.ordersServicee.getallpro();

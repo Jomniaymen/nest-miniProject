@@ -3,10 +3,9 @@ import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
 
 
-import { updateuserDTO } from './dto/updateuser.dto ';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { Roles } from 'src/common/guards/roles.decorator';
+import { UpdateuserDTO } from './dto/updateuser.dto ';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/guards/roles.decorator';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from './user.schema';
 
@@ -14,7 +13,7 @@ import { User } from './user.schema';
 @ApiTags('Users')
 @ApiBearerAuth('JWT-auth')
 @Controller('users')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards( RolesGuard)
 export class UsersController {
     constructor(private readonly userservice: UsersService) {}
   
@@ -42,7 +41,7 @@ export class UsersController {
 
     @Put(':id')
     @Roles('customer','admin')
-    async updateUser(@Body() dto: updateuserDTO, @Param('id') id: string) {
+    async updateUser(@Body() dto:UpdateuserDTO, @Param('id') id: string) {
         return await this.userservice.Update(id, dto);
     }
 
