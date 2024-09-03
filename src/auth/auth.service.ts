@@ -3,11 +3,11 @@ import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { UserDto } from 'src/users/dto/user.dto';
-import { User } from 'src/users/user.schema';
+import { UserDto } from '../users/dto/user.dto';
+import { User } from '../users/user.schema';
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
-import { SigninDto } from 'src/users/dto/userSignin.dto';
+import { SigninDto } from '../users/dto/userSignin.dto';
 @Injectable()
 export class AuthService {
   constructor(@InjectModel(User.name) private userModel: Model<User> , private jwtService: JwtService) {}
@@ -41,7 +41,7 @@ export class AuthService {
   };
 }
   async Signin(dtosign:SigninDto)  {
-    const {email,password,role}=dtosign
+    const {email,password}=dtosign
   const check= await this.userModel.findOne({
     email});
     if(!check){

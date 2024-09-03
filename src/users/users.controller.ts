@@ -8,12 +8,13 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/guards/roles.decorator';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from './user.schema';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 
 
-@ApiTags('Users')
+@ApiTags('users')
 @ApiBearerAuth('JWT-auth')
 @Controller('users')
-@UseGuards( RolesGuard)
+@UseGuards( RolesGuard,JwtAuthGuard)
 export class UsersController {
     constructor(private readonly userservice: UsersService) {}
   

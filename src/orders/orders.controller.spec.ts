@@ -61,7 +61,7 @@ describe('OrdersController', () => {
 
   describe('createProduct', () => {
     it('should create a new order', async () => {
-      const result = await controller.createProduct(mockOrderDto);
+      const result = await controller.createoreder(mockOrderDto);
       expect(result).toEqual(mockOrder);
       expect(service.createProduct).toHaveBeenCalledWith(mockOrderDto);
     });
@@ -69,7 +69,7 @@ describe('OrdersController', () => {
 
   describe('getAllProducts', () => {
     it('should return all orders', async () => {
-      const result = await controller.getAllProducts();
+      const result = await controller.getAllOrders();
       expect(result).toEqual([mockOrder]);
       expect(service.getallpro).toHaveBeenCalled();
     });
@@ -77,7 +77,7 @@ describe('OrdersController', () => {
 
   describe('getProductById', () => {
     it('should return an order by id', async () => {
-      const result = await controller.getProductById('someOrderId');
+      const result = await controller.getOrderById('someOrderId');
       expect(result).toEqual(mockOrder);
       expect(service.getProductById).toHaveBeenCalledWith('someOrderId');
     });
@@ -85,7 +85,7 @@ describe('OrdersController', () => {
 
   describe('updateProduct', () => {
     it('should update an order by id', async () => {
-      const result = await controller.updateProduct('someOrderId', mockOrderDto);
+      const result = await controller.updateOrder('someOrderId', mockOrderDto);
       expect(result).toEqual(mockOrder);
       expect(service.updateProduct).toHaveBeenCalledWith('someOrderId', mockOrderDto);
     });
@@ -93,7 +93,7 @@ describe('OrdersController', () => {
 
   describe('deleteProduct', () => {
     it('should delete an order by id', async () => {
-      const result = await controller.deleteProduct('someOrderId');
+      const result = await controller.deleteOrder('someOrderId');
       expect(result).toEqual(mockOrder);
       expect(service.deleteProduct).toHaveBeenCalledWith('someOrderId');
     });
