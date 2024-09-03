@@ -2,28 +2,28 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
-import { RolesGuard } from '../src/common/guards/roles.guard';
 import { JwtAuthGuard } from '../src/common/guards/jwt-auth.guard';
-
+import { RolesGuard } from '../src/common/guards/roles.guard';
 
 describe('UsersController (e2e)', () => {
   let app: INestApplication;
-  let userrole: string = "admin";
-  const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmQxNzNmZmQ3ODYxYWJjNjgyZDAyMjIiLCJyb2xlIjoiY3VzdG9tZXIiLCJwYXNzd29yZCI6IiQyYiQxMCR0Y1BtdHVHWS41Q3RrTHAuL1Jlajl1Z01IWFQ4eU1Ob0dxaTk2eUlQdjUxeXI4VnltNndwNiIsImlhdCI6MTcyNTM0OTQwOSwiZXhwIjoxNzI1MzUzMDA5fQ.T17FBc4YlTyWkjpnGoPMtlpYStVFadw_CqiRiknTPeM'; 
-  let userId: string='1762000';
+  const adminToken = 'your_admin_jwt_token_here'; // Use a valid JWT token with 'admin' role
+  const customerToken = 'your_customer_jwt_token_here'; // Use a valid JWT token with 'customer' role
+  let userId: string;
+
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
-    .overrideGuard(JwtAuthGuard)
-    .useValue({
-      canActivate: () => true,
-    })
-    .overrideGuard(RolesGuard)
-    .useValue({
-      canActivate: () => true,
-    })
-    .compile();
+      .overrideGuard(JwtAuthGuard)
+      .useValue({
+        canActivate: () => true,
+      })
+      .overrideGuard(RolesGuard)
+      .useValue({
+        canActivate: () => true,
+      })
+      .compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
@@ -33,47 +33,60 @@ describe('UsersController (e2e)', () => {
     await app.close();
   });
 
-
-
-  it('should create a new user', () => {
-  
-    return request(app.getHttpServer())
+  it('should create a new user', async () => {
+    const response = await request(app.getHttpServer())
       .post('/users/add')
-      .set('Authorization', `Bearer ${validToken}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send({
         name: 'aymen',
-        password: '1762000',
+        password: 'password',
         age: 23,
         email: 'aymenjomni@gmail.com',
-        role: 'admin',
+        role: 'customer',
       })
       .expect(201);
+
+    userId = response.body._id; // Assuming the response contains the user ID
   });
 
-  it('/users (GET)', async () => {
+  it('should fetch a user by ID', async () => {
+    await request(app.getHttpServer())
+      .get(`/users/${userId}`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .expect(200)
+      .then(response => {
+        expect(response.body).toHaveProperty('name');
+        expect(response.body).toHaveProperty('email');
+        expect(response.body).toHaveProperty('age');
+        expect(response.body).toHaveProperty('role');
+      });
+  });
 
-    const response = await request(app.getHttpServer())
+  it('should fetch all users', async () => {
+    await request(app.getHttpServer())
       .get('/users')
-       .set('userrole', userrole)
-      .set('Authorization', `Bearer ${validToken}`)
-      .expect(200); 
-
-    expect(response.body).toBeInstanceOf(Array); 
+      .set('Authorization', `Bearer ${adminToken}`)
+      .expect(200)
+      .then(response => {
+        expect(response.body).toBeInstanceOf(Array);
+      });
   });
-  
 
+  it('should update a user by ID', async () => {
+    await request(app.getHttpServer())
+      .put(`/users/${userId}`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({ age: 24 }) // Example update
+      .expect(200);
+  });
 
+  it('should delete a user by ID', async () => {
+    await request(app.getHttpServer())
+      .delete(`/users/${userId}`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .expect(200);
+  });
 
  
 
-  it('/users/:id (DELETE)', async () => {
-    const userId = 'some-user-id'; // Replace with an actual user ID
-    return request(app.getHttpServer())
-      .delete(`/users/${userId}`)
-      .set('Authorization', `Bearer ${validToken}`)
-      .expect(200)
-      .expect((res) => {
-        // Add assertions based on expected response
-      });
-  });
 });
