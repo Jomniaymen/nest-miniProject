@@ -9,6 +9,8 @@ import { JwtAuthGuard } from '../src/common/guards/jwt-auth.guard';
 describe('UsersController (e2e)', () => {
   let app: INestApplication;
   let userrole: string = "admin";
+  const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmQxNzNmZmQ3ODYxYWJjNjgyZDAyMjIiLCJyb2xlIjoiY3VzdG9tZXIiLCJwYXNzd29yZCI6IiQyYiQxMCR0Y1BtdHVHWS41Q3RrTHAuL1Jlajl1Z01IWFQ4eU1Ob0dxaTk2eUlQdjUxeXI4VnltNndwNiIsImlhdCI6MTcyNTM0OTQwOSwiZXhwIjoxNzI1MzUzMDA5fQ.T17FBc4YlTyWkjpnGoPMtlpYStVFadw_CqiRiknTPeM'; 
+  let userId: string='1762000';
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -34,7 +36,6 @@ describe('UsersController (e2e)', () => {
 
 
   it('should create a new user', () => {
-    const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmQxNzNmZmQ3ODYxYWJjNjgyZDAyMjIiLCJyb2xlIjoiY3VzdG9tZXIiLCJwYXNzd29yZCI6IiQyYiQxMCR0Y1BtdHVHWS41Q3RrTHAuL1Jlajl1Z01IWFQ4eU1Ob0dxaTk2eUlQdjUxeXI4VnltNndwNiIsImlhdCI6MTcyNTM0OTQwOSwiZXhwIjoxNzI1MzUzMDA5fQ.T17FBc4YlTyWkjpnGoPMtlpYStVFadw_CqiRiknTPeM'; 
   
     return request(app.getHttpServer())
       .post('/users/add')
@@ -50,7 +51,6 @@ describe('UsersController (e2e)', () => {
   });
 
   it('/users (GET)', async () => {
-    const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmQxNzNmZmQ3ODYxYWJjNjgyZDAyMjIiLCJyb2xlIjoiY3VzdG9tZXIiLCJwYXNzd29yZCI6IiQyYiQxMCR0Y1BtdHVHWS41Q3RrTHAuL1Jlajl1Z01IWFQ4eU1Ob0dxaTk2eUlQdjUxeXI4VnltNndwNiIsImlhdCI6MTcyNTM0OTQwOSwiZXhwIjoxNzI1MzUzMDA5fQ.T17FBc4YlTyWkjpnGoPMtlpYStVFadw_CqiRiknTPeM'; 
 
     const response = await request(app.getHttpServer())
       .get('/users')
@@ -60,6 +60,20 @@ describe('UsersController (e2e)', () => {
 
     expect(response.body).toBeInstanceOf(Array); 
   });
-
   
+
+
+
+ 
+
+  it('/users/:id (DELETE)', async () => {
+    const userId = 'some-user-id'; // Replace with an actual user ID
+    return request(app.getHttpServer())
+      .delete(`/users/${userId}`)
+      .set('Authorization', `Bearer ${validToken}`)
+      .expect(200)
+      .expect((res) => {
+        // Add assertions based on expected response
+      });
+  });
 });
