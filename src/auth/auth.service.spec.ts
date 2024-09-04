@@ -104,12 +104,15 @@ describe('AuthService', () => {
       const result = await authService.Signin(dto);
   
       expect(result).toEqual({
-        access_token: accessToken,
-        user: {
-          id: user._id,
-          email: user.email,
-          password: user.password,
+        body: {
+          access_token: "accessToken",
+          user: {
+            email: "aymen@gmail.com",
+            id: "someId",
+            password: "hashedPassword",
+          },
         },
+        status: 200,
       });
     });
   });
