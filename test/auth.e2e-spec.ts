@@ -51,7 +51,7 @@ describe('AuthController', () => {
   });
 
   describe('signin', () => {
-    it('should call AuthService.Signin with correct params', async () => {
+    it('should call AuthService.', async () => {
       const signinDto: SigninDto = {
         email: 'aymen@gmail.com',
         password: 'password123',

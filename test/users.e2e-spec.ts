@@ -7,8 +7,8 @@ import { RolesGuard } from '../src/common/guards/roles.guard';
 
 describe('UsersController (e2e)', () => {
   let app: INestApplication;
-  const adminToken = 'your_admin_jwt_token_here'; 
-  const customerToken = 'your_customer_jwt_token_here'; 
+  const adminToken = 'admin token'; 
+  const customerToken = 'customer token'; 
   let userId: string;
 
   beforeAll(async () => {
@@ -46,7 +46,7 @@ describe('UsersController (e2e)', () => {
       })
       .expect(201);
 
-    userId = response.body._id; // Assuming the response contains the user ID
+    userId = response.body._id; 
   });
 
   it('should fetch a user by ID', async () => {
