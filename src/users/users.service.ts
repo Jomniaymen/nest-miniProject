@@ -10,12 +10,7 @@ import { query } from 'express';
 
 @Injectable()
 export class UsersService {
-  findByIdAndUpdate(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
-  findById(sub: any) {
-    throw new Error('Method not implemented.');
-  }
+ 
 constructor(@InjectModel(User.name) private usermodel:Model<User>){}
     async createnewuser(@Body() dto:UserDto){
         const newuser=await this.usermodel.create(dto)

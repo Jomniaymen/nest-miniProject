@@ -7,9 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class ProductsService {
-    getAllProducts() {
-        throw new Error('Method not implemented.');
-    }
+ 
     
    constructor(@InjectModel(Product.name) private productModel:Model<Product>){}
 
